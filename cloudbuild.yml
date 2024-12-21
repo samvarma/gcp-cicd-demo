@@ -1,0 +1,14 @@
+steps:
+- name: 'gcr.io/cloud-builders/gsutil'
+  args: ['cp', 'index.html', 'gs://project-dev-bucket']
+  id: 'Deploy to DEV'
+
+- name: 'gcr.io/cloud-builders/gsutil'
+  args: ['cp', 'gs://project-dev-bucket/index.html', 'gs://project-test-bucket']
+  id: 'Promote to TEST'
+  waitFor: ['-']
+
+- name: 'gcr.io/cloud-builders/gsutil'
+  args: ['cp', 'gs://project-test-bucket/index.html', 'gs://project-prod-bucket']
+  id: 'Promote to PROD'
+  waitFor: ['-']
