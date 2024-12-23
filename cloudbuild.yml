@@ -12,3 +12,5 @@ steps:
   args: ['cp', 'gs://project-test-bucket/index.html', 'gs://project-prod-bucket']
   id: 'Promote to PROD'
   waitFor: ['-']
+options:
+  logging: NONE
